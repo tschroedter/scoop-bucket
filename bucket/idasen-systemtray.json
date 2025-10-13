@@ -23,8 +23,7 @@
     ],
     "notes": "Ensure your Ikea Idasen desk is paired via Bluetooth before launching. The app runs in the system tray.",
     "checkver": {
-        "url": "https://github.com/tschroedter/idasen-desk/releases/latest",
-        "regex": "tag/v?([\\d.]+)"
+        "github": "tschroedter/idasen-desk"
     },
     "autoupdate": {
         "architecture": {
