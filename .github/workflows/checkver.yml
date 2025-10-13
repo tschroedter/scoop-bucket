@@ -1,0 +1,21 @@
+name: Autoupdate Idasen System Tray
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # daily at midnight UTC
+
+jobs:
+  update:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run checkver
+        run: |
+          .\bin\checkver.ps1 idasen-systemtray -Update
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Autoupdate idasen-systemtray"
+          git push
