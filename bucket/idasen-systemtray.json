@@ -12,7 +12,7 @@
     "bin": [
         [
             "Idasen-SystemTray-0.1.181-win-x64.exe",
-            "idasen-systemtray.exe"
+            "idasen-systemtray"
         ]
     ],
     "shortcuts": [
