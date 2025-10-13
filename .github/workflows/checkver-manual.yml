@@ -1,0 +1,31 @@
+name: Manual Checkver and Commit
+
+on:
+  workflow_dispatch:  # Allows manual triggering from GitHub UI
+
+jobs:
+  checkver:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up PowerShell
+      uses: actions/setup-powershell@v2
+
+    - name: Run checkver.ps1
+      shell: pwsh
+      run: |
+        .\bin\checkver.ps1 idasen-systemtray -f
+
+    - name: Configure Git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Commit changes
+      run: |
+        git add bucket/idasen-systemtray.json
+        git diff --cached --quiet || git commit -m "Update idasen-systemtray manifest via checkver"
+        git push
