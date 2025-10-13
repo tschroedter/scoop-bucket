@@ -11,22 +11,45 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Scoop
-        run: |
-          Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-          scoop install git
-
-      - name: Run checkver via main.ps1
         shell: pwsh
         run: |
-          .\bin\main.ps1 checkver idasen-systemtray -f
+          # Install Scoop
+          Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+          
+          # Add scoop to current session PATH
+          $env:Path = "$env:USERPROFILE\scoop\shims;$env:Path"
+          
+          # Install git
+          scoop install git
+
+      - name: Run checkver
+        shell: pwsh
+        run: |
+          # Add scoop to PATH
+          $env:Path = "$env:USERPROFILE\scoop\shims;$env:Path"
+          
+          # Set SCOOP_HOME environment variable
+          $env:SCOOP_HOME = "$env:USERPROFILE\scoop\apps\scoop\current"
+          
+          # Run checkver with update flag
+          & "$env:SCOOP_HOME\bin\checkver.ps1" -Dir "${{ github.workspace }}\bucket" -Update
 
       - name: Configure Git
+        shell: pwsh
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Commit changes
+      - name: Commit and push changes
+        shell: pwsh
         run: |
-          git add bucket/idasen-systemtray.json
-          git diff --cached --quiet || git commit -m "Update idasen-systemtray manifest via checkver"
-          git push
+          git add bucket/*.json
+          
+          # Check if there are any changes to commit
+          $changes = git diff --cached --name-only
+          if ($changes) {
+            git commit -m "chore: Update manifests via checkver"
+            git push
+          } else {
+            Write-Host "No changes to commit"
+          }
