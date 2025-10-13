@@ -10,10 +10,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run checkver.ps1
+      - name: Install Scoop
+        run: |
+          Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+          scoop install git
+
+      - name: Run checkver via main.ps1
         shell: pwsh
         run: |
-          pwsh .\bin\checkver.ps1 idasen-systemtray -f
+          .\bin\main.ps1 checkver idasen-systemtray -f
 
       - name: Configure Git
         run: |
