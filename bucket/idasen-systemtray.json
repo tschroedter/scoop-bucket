@@ -6,18 +6,25 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/tschroedter/idasen-desk/releases/download/v0.1.175/Idasen-SystemTray-0.1.175-win-x64.exe",
-            "hash": "sha256:4cda6af5a45125d75864c40e86727422243614bc9be05c78ee37c8f75ff39b5e"
+            "hash": "14878b5f0830916adb8852d3b679814b9c95f04d6c0017d14a02c3181e1d9896"
         }
     },
     "bin": [
-        ["Idasen-SystemTray-0.1.175-win-x64.exe", "idasen-systemtray"]
+        [
+            "Idasen-SystemTray-0.1.175-win-x64.exe",
+            "idasen-systemtray.exe"
+        ]
     ],
     "shortcuts": [
-        ["Idasen-SystemTray-0.1.175-win-x64.exe", "Idasen System Tray"]
+        [
+            "Idasen-SystemTray-0.1.175-win-x64.exe",
+            "Idasen System Tray"
+        ]
     ],
     "notes": "Ensure your Ikea Idasen desk is paired via Bluetooth before launching. The app runs in the system tray.",
     "checkver": {
-        "github": "tschroedter/idasen-desk"
+        "url": "https://github.com/tschroedter/idasen-desk/releases/latest",
+        "regex": "tag/v?([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {
@@ -26,10 +33,16 @@
             }
         },
         "bin": [
-            ["Idasen-SystemTray-$version-win-x64.exe", "idasen-systemtray.exe"]
+            [
+                "Idasen-SystemTray-$version-win-x64.exe",
+                "idasen-systemtray.exe"
+            ]
         ],
         "shortcuts": [
-            ["Idasen-SystemTray-$version-win-x64.exe", "Idasen System Tray"]
+            [
+                "Idasen-SystemTray-$version-win-x64.exe",
+                "Idasen System Tray"
+            ]
         ]
     },
     "installer": {
