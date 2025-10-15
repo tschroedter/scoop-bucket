@@ -1,9 +1,9 @@
 {
     "name": "tschroedter",
     "description": "Custom Scoop bucket for Windows utilities, including the Idasen System Tray app for Bluetooth desk control.",
-    "homepage": "https://github.com/thomas/tschroedter",
+    "homepage": "https://github.com/tschroedter/scoop-bucket",
     "license": "MIT",
     "version": "1.0",
     "maintainer": "Thomas Schroedter",
-    "url": "https://github.com/thomas/tschroedter"
+    "url": "https://github.com/tschroedter/scoop-bucket"
 }
